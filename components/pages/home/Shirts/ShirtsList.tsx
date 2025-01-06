@@ -19,7 +19,7 @@ export const ShirtsList: FC<ShirtsProps> = ({ locale }) => {
   const isDesctop = useMedia(IS_DESCTOP, false);
   useEffect(() => {
     const getData = async () => {
-      const data = await productsAPI.getCorsets(
+      const data = await productsAPI.getShirts(
         locale,
         isTablet && !isDesctop ? 2 : 3,
       );
