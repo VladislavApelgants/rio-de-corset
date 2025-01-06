@@ -3,11 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    domains: ['localhost', 'rio-de-corset-production.up.railway.app'],
+    domains: ['localhost', 'rio-de-corset-production-41f3.up.railway.app'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'rio-de-corset-production.up.railway.app',
+        hostname: 'rio-de-corset-production-41f3.up.railway.app',
         port: '1337',
       },
     ],
