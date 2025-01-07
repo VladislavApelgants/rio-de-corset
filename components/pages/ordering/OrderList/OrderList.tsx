@@ -1,8 +1,9 @@
 'use client';
 
-import { FC } from 'react';
+import {FC, useContext} from 'react';
 import Image from 'next/image';
 import { IconButton } from '@/components/common/button/IconButton';
+import {GlobalContext} from "@/app/[locale]/ContextWrapper";
 
 type ProductState = {
   category: string;
@@ -28,6 +29,7 @@ export const Products: FC<ProductsProps> = ({
   products,
   deleteProduct,
 }) => {
+  const { setIndicatorLS } = useContext(GlobalContext);
   return (
     <div className="bg-greyColor lg:w-[508px] lg:overflow-y-scroll">
       <ul className="flex flex-col gap-4 px-3 pb-10 pt-4 md:gap-4 md:px-10 md:pt-6 lg:mb-10">
@@ -60,7 +62,10 @@ export const Products: FC<ProductsProps> = ({
                   className=""
                   type="button"
                   aria-label="delete product from shopping card"
-                  onClick={() => deleteProduct(category, id, index)}
+                  onClick={() => {
+                    deleteProduct(category, id, index)
+                    setIndicatorLS(previousState => !previousState)
+                  }}
                 >
                   <svg className="linear h-[24px] w-[24px] stroke-blackColor transition-colors duration-300 group-hover:stroke-activeColor	">
                     <use href="/image/icons.svg#icon-x"></use>

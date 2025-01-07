@@ -1,12 +1,13 @@
 'use client';
 
 import { Form } from '@/components/common/Form';
-import { FC, useEffect, useState } from 'react';
+import {FC, useContext, useEffect, useState} from 'react';
 import { Products } from '../OrderList/OrderList';
 import { shoppingCardService } from '@/services/shoppingCardService';
 import { productsAPI } from '@/services/productsAPI';
 import { TotalPrice } from '../TotalPrice/TotalPrice';
 import { corsetAttributes } from '@/types/сorsetAttributes';
+import {GlobalContext} from "@/app/[locale]/ContextWrapper";
 
 type OrderProps = {
   locale: 'uk' | 'en';
@@ -35,6 +36,7 @@ const createProductArray =
 export const Order: FC<OrderProps> = ({ locale }) => {
   const [products, setProducts] = useState<ProductState[]>([]);
   const [totalPrice, setTotalPrice] = useState('0');
+  const { indicatorLS } = useContext(GlobalContext);
 
   useEffect(() => {
     (async () => {
@@ -51,7 +53,7 @@ export const Order: FC<OrderProps> = ({ locale }) => {
 
       setProducts(productsArray);
     })();
-  }, [locale]);
+  }, [locale, indicatorLS]);
 
   useEffect(() => {
     const total = products.reduce(
@@ -59,7 +61,7 @@ export const Order: FC<OrderProps> = ({ locale }) => {
       0,
     );
     setTotalPrice(`${total} ${locale === 'uk' ? ' ₴' : '$'}`);
-  }, [products, locale]);
+  }, [products, locale,indicatorLS]);
 
   const deleteProduct = (category: string, id: number, index: number) => {
     shoppingCardService.deleteProducts(id, category);
